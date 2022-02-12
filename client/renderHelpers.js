@@ -1,17 +1,21 @@
-import { fetchAllPlayers, fetchSinglePlayer } from './ajaxHelpers';
+import {
+  addNewPlayer,
+  fetchAllPlayers,
+  fetchSinglePlayer,
+} from "./ajaxHelpers";
 
-const playerContainer = document.getElementById('all-players-container');
-const newPlayerFormContainer = document.getElementById('new-player-form');
+const playerContainer = document.getElementById("all-players-container");
+const newPlayerFormContainer = document.getElementById("new-player-form");
 
 export const renderAllPlayers = (playerList) => {
   // First check if we have any data before trying to render it!
   if (!playerList || !playerList.length) {
-    playerContainer.innerHTML = '<h3>No players to display!</h3>';
+    playerContainer.innerHTML = "<h3>No players to display!</h3>";
     return;
   }
 
   // Loop through the list of players, and construct some HTML to display each one
-  let playerContainerHTML = '';
+  let playerContainerHTML = "";
   for (let i = 0; i < playerList.length; i++) {
     const pup = playerList[i];
     let pupHTML = `
@@ -33,11 +37,11 @@ export const renderAllPlayers = (playerList) => {
   // Now that the HTML for all players has been added to the DOM,
   // we want to grab those "See details" buttons on each player
   // and attach a click handler to each one
-  let detailButtons = [...document.getElementsByClassName('detail-button')];
+  let detailButtons = [...document.getElementsByClassName("detail-button")];
   for (let i = 0; i < detailButtons.length; i++) {
     const button = detailButtons[i];
-    button.addEventListener('click', async () => {
-      let playerStats = await fetchSinglePlayer(button.dataset.id)
+    button.addEventListener("click", async () => {
+      let playerStats = await fetchSinglePlayer(button.dataset.id);
       renderSinglePlayer(playerStats);
     });
   }
@@ -47,7 +51,7 @@ export const renderSinglePlayer = (playerObj) => {
   if (!playerObj || !playerObj.id) {
     playerContainer.innerHTML = "<h3>Couldn't find data for this player!</h3>";
     return;
-  } 
+  }
 
   let pupHTML = `
     <div class="single-player-view">
@@ -55,7 +59,7 @@ export const renderSinglePlayer = (playerObj) => {
         <p class="pup-title">${playerObj.name}</p>
         <p class="pup-number">#${playerObj.id}</p>
       </div>
-      <p>Team: ${playerObj.team ? playerObj.team.name : 'Unassigned'}</p>
+      <p>Team: ${playerObj.team ? playerObj.team.name : "Unassigned"}</p>
       <p>Breed: ${playerObj.breed}</p>
       <img src="${playerObj.imageUrl}" alt="photo of ${
     playerObj.name
@@ -66,10 +70,10 @@ export const renderSinglePlayer = (playerObj) => {
   playerContainer.innerHTML = pupHTML;
 
   let backButton = document.getElementById("see-all");
-  backButton.addEventListener('click', async () => {
+  backButton.addEventListener("click", async () => {
     let players = await fetchAllPlayers();
     return renderAllPlayers(players);
-  })
+  });
 };
 
 export const renderNewPlayerForm = () => {
@@ -84,8 +88,13 @@ export const renderNewPlayerForm = () => {
   `;
   newPlayerFormContainer.innerHTML = formHTML;
 
-  let form = document.querySelector('#new-player-form > form');
-  form.addEventListener('submit', async (event) => {
+  let form = document.querySelector("#new-player-form > form");
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
+    let playerData = {
+      name: form.elements.name.value,
+      breed: form.elements.breed.value,
+    };
+    addNewPlayer(playerData);
   });
 };
