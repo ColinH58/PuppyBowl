@@ -37,9 +37,9 @@ export const renderAllPlayers = (playerList) => {
   for (let i = 0; i < detailButtons.length; i++) {
     const button = detailButtons[i];
     button.addEventListener('click', async () => {
-      let playId = button.dataset.id
-      let playIdInfo = fetchSinglePlayer(playId);
-      return playIdInfo;
+      let playerObj = await fetchSinglePlayer(button.dataset.id)
+      console.log(playerObj)
+      return playerObj
     });
   }
 };
@@ -48,7 +48,7 @@ export const renderSinglePlayer = (playerObj) => {
   if (!playerObj || !playerObj.id) {
     playerContainer.innerHTML = "<h3>Couldn't find data for this player!</h3>";
     return;
-  }
+  } 
 
   let pupHTML = `
     <div class="single-player-view">
