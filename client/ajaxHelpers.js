@@ -1,4 +1,4 @@
-import { renderNewPlayerForm } from "./renderHelpers";
+import { renderNewPlayerForm, } from "./renderHelpers";
 
 // Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
 const cohortName = "2112-FTB-ET-WEB-PT";
@@ -46,5 +46,12 @@ export const addNewPlayer = async (playerObj) => {
 };
 
 export const removePlayer = async (playerId) => {
-    
+    await fetch(`${APIURL}/players`, {
+        method: 'DELETE'
+    });
+    let response = await fetch(`${APIURL}/players/${playerId}`, {
+        method: "DELETE",
+    })
+    const result = await response.json();
+    console.log(result)
 };

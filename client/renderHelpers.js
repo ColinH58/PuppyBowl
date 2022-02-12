@@ -2,7 +2,7 @@ import {
   addNewPlayer,
   fetchAllPlayers,
   fetchSinglePlayer,
-  removePlayer
+  removePlayer,
 } from "./ajaxHelpers";
 
 const playerContainer = document.getElementById("all-players-container");
@@ -35,6 +35,16 @@ export const renderAllPlayers = (playerList) => {
 
   // After looping, fill the `playerContainer` div with the HTML we constructed above
   playerContainer.innerHTML = playerContainerHTML;
+  
+  let deleteButtons = [...document.getElementsByClassName('delete-button')];
+  for (let i = 0; i < deleteButtons.length; i++) {
+    let button = deleteButtons[i]
+    button.addEventListener('click', async () => {
+      await removePlayer(button.dataset.id)
+      let players = await fetchAllPlayers()
+      renderAllPlayers(players)
+    });
+  }
 
   // Now that the HTML for all players has been added to the DOM,
   // we want to grab those "See details" buttons on each player
