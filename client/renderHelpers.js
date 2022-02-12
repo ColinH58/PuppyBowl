@@ -2,6 +2,7 @@ import {
   addNewPlayer,
   fetchAllPlayers,
   fetchSinglePlayer,
+  removePlayer
 } from "./ajaxHelpers";
 
 const playerContainer = document.getElementById("all-players-container");
@@ -26,6 +27,7 @@ export const renderAllPlayers = (playerList) => {
         </div>
         <img src="${pup.imageUrl}" alt="photo of ${pup.name} the puppy">
         <button class="detail-button" data-id=${pup.id}>See details</button>
+        <button class="delete-button" data-id=${pup.id}>Remove from roster</button>
       </div>
     `;
     playerContainerHTML += pupHTML;

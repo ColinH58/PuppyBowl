@@ -45,4 +45,6 @@ export const addNewPlayer = async (playerObj) => {
   }
 };
 
-export const removePlayer = async (playerId) => {};
+export const removePlayer = async (playerId) => {
+    
+};
