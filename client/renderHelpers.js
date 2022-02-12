@@ -95,6 +95,8 @@ export const renderNewPlayerForm = () => {
       name: form.elements.name.value,
       breed: form.elements.breed.value,
     };
-    addNewPlayer(playerData);
+    await addNewPlayer(playerData);
+    let newPlayers = await fetchAllPlayers();
+    return renderAllPlayers(newPlayers);
   });
 };
