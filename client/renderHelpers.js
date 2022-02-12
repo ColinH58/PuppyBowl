@@ -86,8 +86,6 @@ export const renderNewPlayerForm = () => {
 
   let form = document.querySelector('#new-player-form > form');
   form.addEventListener('submit', async (event) => {
-    /*
-      YOUR CODE HERE
-    */
+    event.preventDefault();
   });
 };
