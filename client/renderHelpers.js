@@ -37,9 +37,8 @@ export const renderAllPlayers = (playerList) => {
   for (let i = 0; i < detailButtons.length; i++) {
     const button = detailButtons[i];
     button.addEventListener('click', async () => {
-      let playerObj = await fetchSinglePlayer(button.dataset.id)
-      console.log(playerObj)
-      return playerObj
+      let playerStats = await fetchSinglePlayer(button.dataset.id)
+      renderSinglePlayer(playerStats);
     });
   }
 };
